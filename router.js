@@ -7,6 +7,7 @@ import { fileExistChecker, fileNotExistChecker } from './utils/existChecker.js';
 import { up, cd, ls } from './utils/nwd.js';
 import { readFile, addFile, renameFile, copyFile, deleteFile, moveFile } from './utils/fs.js';
 import { osRouter } from './utils/os.js';
+import { calculateHash } from './utils/hash.js';
 
 export const router = async (command) => {
   const [ type, ...args ] = command.trim().split(' ')
@@ -72,6 +73,14 @@ export const router = async (command) => {
     case 'os': {
       if (args.length !== 1) invalidError();
       osRouter(...args)
+      break;
+    }
+
+    // Hash calculation (hash)
+    case 'hash': {
+      if (args.length !== 1) invalidError();
+      const filePath = await fileExistChecker(resolve(currentPath, args[0]))
+      await calculateHash(filePath)
       break;
     }
 

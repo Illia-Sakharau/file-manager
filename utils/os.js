@@ -30,7 +30,7 @@ const eol = () => {
 const cpus = () => {
   const cpusInfo = os.cpus()
   console.log(`Overall amount of CPUS: ${cpusInfo.length}`)
-  console.table(cpusInfo.map((cpu) => ({ Model: cpu.model, 'Clock rate (in GHz)': (cpu.speed / 1000)})));
+  console.table(cpusInfo.map((cpu) => ({ Model: cpu.model, 'Clock rate': (cpu.speed / 1000) + ' GHz'})));
 }
 
 const homedir = () => {
