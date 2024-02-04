@@ -8,6 +8,7 @@ import { up, cd, ls } from './utils/nwd.js';
 import { readFile, addFile, renameFile, copyFile, deleteFile, moveFile } from './utils/fs.js';
 import { osRouter } from './utils/os.js';
 import { calculateHash } from './utils/hash.js';
+import { comperessBrotli, decomperessBrotli } from './utils/zip.js';
 
 export const router = async (command) => {
   const [ type, ...args ] = command.trim().split(' ')
@@ -81,6 +82,22 @@ export const router = async (command) => {
       if (args.length !== 1) invalidError();
       const filePath = await fileExistChecker(resolve(currentPath, args[0]))
       await calculateHash(filePath)
+      break;
+    }
+
+    // Compress and decompress operations (zip)
+    case 'compress': {
+      if (args.length !== 2) invalidError();
+      const srcPath = await fileExistChecker(resolve(currentPath, args[0]))
+      const destPath = await fileNotExistChecker(resolve(currentPath, args[1]))
+      await comperessBrotli(srcPath, destPath)
+      break;
+    }
+    case 'decompress': {
+      if (args.length !== 2) invalidError();
+      const srcPath = await fileExistChecker(resolve(currentPath, args[0]))
+      const destPath = await fileNotExistChecker(resolve(currentPath, args[1]))
+      await decomperessBrotli(srcPath, destPath)
       break;
     }
 
