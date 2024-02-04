@@ -6,6 +6,7 @@ import { currentPath } from './utils/nwd.js';
 import { fileExistChecker, fileNotExistChecker } from './utils/existChecker.js';
 import { up, cd, ls } from './utils/nwd.js';
 import { readFile, addFile, renameFile, copyFile, deleteFile, moveFile } from './utils/fs.js';
+import { osRouter } from './utils/os.js';
 
 export const router = async (command) => {
   const [ type, ...args ] = command.trim().split(' ')
@@ -64,6 +65,13 @@ export const router = async (command) => {
       const filePath = await fileExistChecker(resolve(currentPath, args[0]))
       const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1]))
       await moveFile(filePath, newFilePath)
+      break;
+    }
+
+    // Operating system info (os)
+    case 'os': {
+      if (args.length !== 1) invalidError();
+      osRouter(...args)
       break;
     }
 
