@@ -1,5 +1,5 @@
 import process from 'process';
-import {x} from './utils/nwd.js';
+import { up } from './utils/nwd.js';
 
 export const router = async (command) => {
   const [ type, ...args ] = command.split(' ')
@@ -7,8 +7,12 @@ export const router = async (command) => {
   switch (type) {
     case '.exit':
       process.exit()
-    case 'test':
-      x()
+    
+    // Navigation & working directory (nwd)
+    case 'up':
+      up()
+      break;
+    
     default:
       throw new Error('invalid')
   }
