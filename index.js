@@ -20,9 +20,10 @@ const fileManager = async () => {
   process.on('exit', () => finishProgram(username));
 
   while (true) {
+    console.log();
     try {
       const command = await rl.question(QUESTION_MESSAGE(currentPath));
-      await router(command) 
+      await router(command)
     } catch (error) {
       if (error.message === 'invalid') {
         console.log(INVALID_MESSAGE);
@@ -30,7 +31,6 @@ const fileManager = async () => {
         console.log(FAILED_MESSAGE);
         console.log(error); //delete
       }
-      console.log();
     }
   }
 
