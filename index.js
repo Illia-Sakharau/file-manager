@@ -28,7 +28,9 @@ const fileManager = async () => {
         console.log(INVALID_MESSAGE);
       } else {
         console.log(FAILED_MESSAGE);
+        console.log(error); //delete
       }
+      console.log();
     }
   }
 
