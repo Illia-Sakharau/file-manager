@@ -1,4 +1,4 @@
-const ANON_NAME = 'Anonim';
+import { ANON_NAME } from '../dictionary.js'
 
 export const defineUsername = (argv) => {
   const arg = argv.find((arg) => arg.startsWith('--username'))
