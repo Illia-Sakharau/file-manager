@@ -35,3 +35,10 @@ export const copyFile = async (filePath, newFilePath) => {
   await pipeline(from, to, { end: false });
   console.log(SUCCESS_MESSAGE);
 }
+
+export const deleteFile = async (filePath) => {
+  if (typeof(filePath) !== 'string') invalidError();
+
+  await fs.rm(filePath)
+  console.log(SUCCESS_MESSAGE);
+}
