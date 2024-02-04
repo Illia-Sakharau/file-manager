@@ -3,9 +3,9 @@ import { resolve } from 'path';
 
 import { invalidError } from './utils/errorHandles.js'
 import { currentPath } from './utils/nwd.js';
-import { fileExistChecker } from './utils/existChecker.js';
+import { fileExistChecker, fileNotExistChecker } from './utils/existChecker.js';
 import { up, cd, ls } from './utils/nwd.js';
-import { cat, add } from './utils/fs.js';
+import { cat, add, rn } from './utils/fs.js';
 
 export const router = async (command) => {
   const [ type, ...args ] = command.trim().split(' ')
@@ -37,6 +37,13 @@ export const router = async (command) => {
       if (args.length !== 1) invalidError();
       const filePath = resolve(currentPath, ...args)
       await add(filePath)
+      break;
+    }
+    case 'rn': {
+      if (args.length !== 2) invalidError();
+      const filePath = await fileExistChecker(resolve(currentPath, args[0]))
+      const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1]))
+      await rn(filePath, newFilePath)
       break;
     }
 

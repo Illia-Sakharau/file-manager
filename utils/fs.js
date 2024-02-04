@@ -1,6 +1,5 @@
 import { createReadStream } from 'fs';
 import fs from 'fs/promises';
-import path from 'path';
 import { stdout } from "process";
 import { pipeline } from 'stream/promises';
 import { invalidError } from './errorHandles.js';
@@ -18,5 +17,12 @@ export const add = async (filePath) => {
   if (typeof(filePath) !== 'string') invalidError();
 
   await fs.writeFile(filePath, '', { flag: 'wx' })
+  console.log(SUCCESS_MESSAGE);
+}
+
+export const rn = async (filePath, newFilePath) => {
+  if (typeof(filePath) !== 'string' || typeof(newFilePath) !== 'string') invalidError();
+
+  await fs.rename(filePath, newFilePath)
   console.log(SUCCESS_MESSAGE);
 }

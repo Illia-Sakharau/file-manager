@@ -13,3 +13,12 @@ export const fileExistChecker = async (path) => {
   if (!isFile) throw new Error('It is not file');
   return path
 }
+
+export const fileNotExistChecker = async (path) => {
+  try {
+    await access(path);
+  } catch (_) {
+    return path
+  }
+  throw new Error('It is not file');
+}
