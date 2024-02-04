@@ -42,3 +42,8 @@ export const deleteFile = async (filePath) => {
   await fs.rm(filePath)
   console.log(SUCCESS_MESSAGE);
 }
+
+export const moveFile = async (filePath, newFilePath) => {
+  await copyFile(filePath, newFilePath)
+  await deleteFile(filePath)
+}
