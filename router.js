@@ -1,4 +1,4 @@
-import process, { stdin as input, stdout as output } from 'process';
+import process from 'process';
 
 export const router = async (command) => {
   const [ type, ...args ] = command.split(' ')
@@ -7,8 +7,6 @@ export const router = async (command) => {
     case '.exit':
       process.exit()
     default:
-      console.log(type);
-      console.log(args);
+      throw new Error('invalid')
   }
-
 }

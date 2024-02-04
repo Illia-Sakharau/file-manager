@@ -3,7 +3,12 @@ import { createInterface } from 'readline/promises';
 import { router } from './router.js'
 import { defineUsername } from './utils/defineUsername.js'
 import { finishProgram } from './utils/finishProgram.js'
-import { QUESTION_MESSAGE, GREETING_MESSAGE } from './dictionary.js'
+import { 
+  QUESTION_MESSAGE, 
+  GREETING_MESSAGE,
+  INVALID_MESSAGE,
+  FAILED_MESSAGE,
+} from './dictionary.js'
 
 
 const fileManager = async () => {
@@ -15,8 +20,16 @@ const fileManager = async () => {
   process.on('exit', () => finishProgram(username));
 
   while (true) {
-    const command = await rl.question(QUESTION_MESSAGE(currentPath));
-    await router(command)
+    try {
+      const command = await rl.question(QUESTION_MESSAGE(currentPath));
+      await router(command) 
+    } catch (error) {
+      if (error.message === 'invalid') {
+        console.log(INVALID_MESSAGE);
+      } else {
+        console.log(FAILED_MESSAGE);
+      }
+    }
   }
 
 }
