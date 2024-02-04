@@ -1,5 +1,5 @@
 import process from 'process';
-import { up, cd } from './utils/nwd.js';
+import { up, cd, ls } from './utils/nwd.js';
 
 export const router = async (command) => {
   const [ type, ...args ] = command.split(' ')
@@ -14,6 +14,9 @@ export const router = async (command) => {
       break;
     case 'cd':
       await cd(args)
+      break;
+    case 'ls':
+      await ls()
       break;
     
     default:
