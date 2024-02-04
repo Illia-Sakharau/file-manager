@@ -8,12 +8,12 @@ import {
   GREETING_MESSAGE,
   INVALID_MESSAGE,
   FAILED_MESSAGE,
-} from './dictionary.js'
+} from './dictionary.js';
+import { currentPath } from './utils/nwd.js'
 
 
 const fileManager = async () => {
   const username = defineUsername(process.argv);
-  const currentPath = 'SOME:/current/path'
   const rl = createInterface({ input, output });
 
   console.log(GREETING_MESSAGE(username));
