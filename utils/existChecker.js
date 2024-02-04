@@ -20,5 +20,5 @@ export const fileNotExistChecker = async (path) => {
   } catch (_) {
     return path
   }
-  throw new Error('It is not file');
+  throw new Error('Target file exist');
 }

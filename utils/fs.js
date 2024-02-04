@@ -1,4 +1,4 @@
-import { createReadStream } from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
 import fs from 'fs/promises';
 import { stdout } from "process";
 import { pipeline } from 'stream/promises';
@@ -24,5 +24,14 @@ export const rn = async (filePath, newFilePath) => {
   if (typeof(filePath) !== 'string' || typeof(newFilePath) !== 'string') invalidError();
 
   await fs.rename(filePath, newFilePath)
+  console.log(SUCCESS_MESSAGE);
+}
+
+export const cp = async (filePath, newFilePath) => {
+  if (typeof(filePath) !== 'string' || typeof(newFilePath) !== 'string') invalidError();
+
+  const from = createReadStream(filePath);
+  const to = createWriteStream(newFilePath);
+  await pipeline(from, to, { end: false });
   console.log(SUCCESS_MESSAGE);
 }
