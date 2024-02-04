@@ -2,6 +2,7 @@ import os from 'os';
 import { readdir, stat } from 'fs/promises';
 import { resolve, join } from 'path';
 import { folderExistChecker } from './existChecker.js';
+import { invalidError } from './errorHandles.js';
 
 export let currentPath = os.homedir();
 
@@ -10,8 +11,9 @@ export const up = () => {
 }
 
 export const cd = async (path) => {
-  if (path.length > 1) throw new Error('invalid');
-  const newPath = resolve(currentPath, path[0])
+  if (typeof(path) !== 'string') invalidError();
+
+  const newPath = resolve(currentPath, path);
   currentPath = await folderExistChecker(newPath);
 }
 
