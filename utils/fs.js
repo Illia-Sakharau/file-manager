@@ -5,7 +5,7 @@ import { pipeline } from 'stream/promises';
 import { invalidError } from './errorHandles.js';
 import { SUCCESS_MESSAGE } from '../dictionary.js'
 
-export const cat = async (path) => {
+export const readFile = async (path) => {
   if (typeof(path) !== 'string') invalidError();
 
   const input = createReadStream(path);
@@ -13,21 +13,21 @@ export const cat = async (path) => {
   console.log();
 }
 
-export const add = async (filePath) => {
+export const addFile = async (filePath) => {
   if (typeof(filePath) !== 'string') invalidError();
 
   await fs.writeFile(filePath, '', { flag: 'wx' })
   console.log(SUCCESS_MESSAGE);
 }
 
-export const rn = async (filePath, newFilePath) => {
+export const renameFile = async (filePath, newFilePath) => {
   if (typeof(filePath) !== 'string' || typeof(newFilePath) !== 'string') invalidError();
 
   await fs.rename(filePath, newFilePath)
   console.log(SUCCESS_MESSAGE);
 }
 
-export const cp = async (filePath, newFilePath) => {
+export const copyFile = async (filePath, newFilePath) => {
   if (typeof(filePath) !== 'string' || typeof(newFilePath) !== 'string') invalidError();
 
   const from = createReadStream(filePath);

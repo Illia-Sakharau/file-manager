@@ -5,7 +5,7 @@ import { invalidError } from './utils/errorHandles.js'
 import { currentPath } from './utils/nwd.js';
 import { fileExistChecker, fileNotExistChecker } from './utils/existChecker.js';
 import { up, cd, ls } from './utils/nwd.js';
-import { cat, add, rn, cp } from './utils/fs.js';
+import { readFile, addFile, renameFile, copyFile } from './utils/fs.js';
 
 export const router = async (command) => {
   const [ type, ...args ] = command.trim().split(' ')
@@ -30,27 +30,27 @@ export const router = async (command) => {
     case 'cat': {
       if (args.length !== 1) invalidError();
       const filePath = await fileExistChecker(resolve(currentPath, ...args))
-      await cat(filePath)
+      await readFile(filePath)
       break;
     }
     case 'add': {
       if (args.length !== 1) invalidError();
       const filePath = resolve(currentPath, ...args)
-      await add(filePath)
+      await addFile(filePath)
       break;
     }
     case 'rn': {
       if (args.length !== 2) invalidError();
       const filePath = await fileExistChecker(resolve(currentPath, args[0]))
       const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1]))
-      await rn(filePath, newFilePath)
+      await renameFile(filePath, newFilePath)
       break;
     }
     case 'cp': {
       if (args.length !== 2) invalidError();
       const filePath = await fileExistChecker(resolve(currentPath, args[0]))
       const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1]))
-      await cp(filePath, newFilePath)
+      await copyFile(filePath, newFilePath)
       break;
     }
 
