@@ -53,7 +53,8 @@ export const router = async (command) => {
     case 'cp': {
       if (args.length !== 2) invalidError();
       const filePath = await fileExistChecker(resolve(currentPath, args[0]))
-      const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1]))
+      const fileName = filePath.split(sep).pop()
+      const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1], fileName))
       await copyFile(filePath, newFilePath)
       break;
     }
@@ -66,7 +67,8 @@ export const router = async (command) => {
     case 'mv': {
       if (args.length !== 2) invalidError();
       const filePath = await fileExistChecker(resolve(currentPath, args[0]))
-      const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1]))
+      const fileName = filePath.split(sep).pop()
+      const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1]), fileName)
       await moveFile(filePath, newFilePath)
       break;
     }
