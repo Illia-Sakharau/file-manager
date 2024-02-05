@@ -11,7 +11,10 @@ import { calculateHash } from './utils/hash.js';
 import { comperessBrotli, decomperessBrotli } from './utils/zip.js';
 
 export const router = async (command) => {
-  const [ type, ...args ] = command.trim().split(' ')
+  const [ type, ...args ] = command
+    .trim()
+    .match(/(?:[^\s"]+|"[^"]*")+/g)
+    .map(arg => arg.replace(/"/g, ''))
 
   switch (type) {
     case '.exit':
