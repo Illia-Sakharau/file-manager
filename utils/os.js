@@ -24,7 +24,7 @@ export const osRouter = (command) => {
 }
 
 const eol = () => {
-  console.log(os.EOL);
+  console.log(JSON.stringify(os.EOL));
 }
 
 const cpus = () => {
