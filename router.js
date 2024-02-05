@@ -1,5 +1,5 @@
 import process from 'process';
-import { resolve } from 'path';
+import { resolve, sep, join } from 'path';
 
 import { invalidError } from './utils/errorHandles.js'
 import { currentPath } from './utils/nwd.js';
@@ -45,7 +45,8 @@ export const router = async (command) => {
     case 'rn': {
       if (args.length !== 2) invalidError();
       const filePath = await fileExistChecker(resolve(currentPath, args[0]))
-      const newFilePath = await fileNotExistChecker(resolve(currentPath, args[1]))
+      const lastSepIndex = filePath.lastIndexOf(sep)
+      const newFilePath = await fileNotExistChecker(join(filePath.slice(0, lastSepIndex), args[1]))
       await renameFile(filePath, newFilePath)
       break;
     }
